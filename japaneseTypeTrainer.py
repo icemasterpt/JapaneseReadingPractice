@@ -4,11 +4,18 @@ import jt
 import time
 import os
 
-timeLimit = 10#10 segundos
+class gVars:
 
+    timeLimit = 10#10 segundos
+    tries = 0
+    score = 0
+    sumAllTimes = 0
+    totalTime = 0
+    #average = sumAllTimes/ tries
 
 #funcao que é chamada para executar o teste propriamente dito
 def tryMode():
+    gVars.tries +=1
     phrase = jt.generatePhrase(5)
     phaseString = jt.generateStringRomanji(phrase)
     score = 0
@@ -16,19 +23,33 @@ def tryMode():
     print(hiraphrase)
     startTime = time.time()
     kstr = raw_input()
-    if int(time.time() - startTime) >= timeLimit:
-        print("You took too long: " +  str(time.time()-startTime) + "seconds")
+    elapsedTime = time.time()-startTime
+    if int(elapsedTime) >= gVars.timeLimit:
+        print("You took too long: " +  str(elapsedTime) + "seconds")
 
     elif kstr == phaseString:
         print("\ncorrect!")
-        print("you took: " + str(time.time()-startTime))
+        print("you took: " + str(elapsedTime)+ "Seconds ")
     else:
         print("\nWrong!, it was "+str(phaseString))
+    
+    #avoid divide by 0 lol
+    gVars.sumAllTimes += elapsedTime
+    #gVars.tries += 1
+
     time.sleep(4)
     mainMenuLoop()
 
 def printMainMenu():
     os.system("clear")
+    print("---------------")
+    print("|This is a Hirana reading practice tool.")
+    print("|your goal is to write in romanji what you read as fast as possible")
+    print("|This will help you improve your read speed ")
+    print("-----------------------------1")
+    #avoid divide by zero 
+    if gVars.tries > 0:
+        print("current tries:"+ str(gVars.tries) + " average time: "+ str(gVars.sumAllTimes/gVars.tries) + " Seconds  all times: " + str(gVars.sumAllTimes))
     print("---------------")
     print(":\t start training :press 1\n")
     print(":\t exit           :press 0\n")
@@ -46,7 +67,6 @@ def printMainMenu():
 
 
 def mainMenuLoop():
-    score = 0
     stage = 0 #0 = normal menu 1 = ingame loop
     if stage == 0:
         printMainMenu()
