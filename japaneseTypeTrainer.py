@@ -7,8 +7,8 @@ import os
 class gVars:
 
     timeLimit = 10#10 segundos
-    tries = 0
-    score = 0
+    tries = 0.0
+    score = 0.0
     sumAllTimes = 0
     totalTime = 0
     #average = sumAllTimes/ tries
@@ -30,6 +30,8 @@ def tryMode():
     elif kstr == phaseString:
         print("\ncorrect!")
         print("you took: " + str(elapsedTime)+ "Seconds ")
+        gVars.score += 1
+    
     else:
         print("\nWrong!, it was "+str(phaseString))
     
@@ -49,7 +51,8 @@ def printMainMenu():
     print("-----------------------------1")
     #avoid divide by zero 
     if gVars.tries > 0:
-        print("current tries:"+ str(gVars.tries) + " average time: "+ str(gVars.sumAllTimes/gVars.tries) + " Seconds  all times: " + str(gVars.sumAllTimes))
+        print("current tries:"+ str(gVars.tries) + " average time: "+ str(gVars.sumAllTimes/gVars.tries) + " Seconds ")
+        print("success rate: "+ str(gVars.score/gVars.tries))
     print("---------------")
     print(":\t start training :press 1\n")
     print(":\t exit           :press 0\n")
