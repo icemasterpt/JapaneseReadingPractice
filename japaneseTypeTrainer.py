@@ -5,8 +5,9 @@ import time
 
 timeLimit = 10#10 segundos
 
+
+#funcao que é chamada para executar o teste propriamente dito
 def tryMode():
-    
     phrase = jt.generatePhrase(5)
     phaseString = jt.generateStringRomanji(phrase)
     score = 0
@@ -22,6 +23,11 @@ def tryMode():
     else:
         print("\nWrong!, it was "+str(phaseString))
 
+
+def mainMenuLoop():
+    score = 0
+    stage = 0 #0 = normal menu 1 = ingame loop
+    
 
 
 
